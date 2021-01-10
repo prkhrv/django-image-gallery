@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <title></title>
+</head>
+<body>
+
+    <center>
+
+    <h1>Gallery</h1>
+
+
+
+    {% if selected_tags %}
+
+        <h3>Selected Tags:</h3>
+        {% for tag in selected_tags %}
+            <h4 class="selected_tags" ><mark>{{tag}}</mark></h4>
+        {% endfor %}
+
+    {% endif %}
+
+    <h2>Filters</h2>
+
+    <form id="post_form" method="post" action="" enctype="multipart/form-data">
+ 
+        {% csrf_token %}
+        <p>
+            <select name="tags" multiple>
+                {% for tag in tags %}
+                  {% if tag in selected_tags %}
+                    
+                     <option selected value="{{tag}}">{{tag}}</option>
+                  {% else %}
+                     <option  value="{{tag}}">{{tag}}</option>
+                  {% endif %}   
+
+                {% endfor %}
+              </select>
+
+        </p>
+     
+     
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+
+    </center>
+
+    {% for img in gallery_images %} 
+
+    <div class="gallery">
+    <a href="{% url 'view_image' pk=img.pk %}">
+      <img src="{{ img.image.url }}" alt="Cinque Terre" width="600" height="400">
+    </a>
+  </div>
+    {% endfor %} 
+
+
+    {% if gallery_images.has_other_pages %}
+  <ul class="pagination">
+    {% if gallery_images.has_previous %}
+      <li><a href="?page={{ gallery_images.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in gallery_images.paginator.page_range %}
+      {% if gallery_images.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if gallery_images.has_next %}
+      <li><a href="?page={{ gallery_images.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+
+
+    
+</body>
+</html>

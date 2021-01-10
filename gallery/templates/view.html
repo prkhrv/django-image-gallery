@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <img src="{{ img.image.url }}" alt="Cinque Terre">
+
+    <form onsubmit="update()" method="POST">
+
+        {% csrf_token %}
+
+
+        <input type="submit" name="rotate" value="Rotate Left" />
+
+        <input type="submit" name="rotate" value="Rotate Right" />
+
+       
+
+
+    
+    </form>
+
+
+    <script>
+        function update(){
+            console.log("update");
+        }
+    </script>    
+
+    
+</body>
+</html>
