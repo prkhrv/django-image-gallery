@@ -47,7 +47,7 @@ def addImage(request):
                 gallery_item.tags.add(tag)
             gallery_item.save()
         
-        return HttpResponse("added successfully")
+        return redirect('/')
     return render(request, 'add.html',{'tags':tags})
 
 

@@ -9,7 +9,7 @@
 
     <img src="{{ img.image.url }}" alt="Cinque Terre">
 
-    <form onsubmit="update()" method="POST">
+    <form method="POST" id="myForm">
 
         {% csrf_token %}
 
@@ -25,10 +25,13 @@
     </form>
 
 
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+
     <script>
-        function update(){
-            console.log("update");
-        }
+        function myFunction() {
+        setTimeout(function(){ window.location.reload();}, 3000);
+    }
     </script>    
 
     
